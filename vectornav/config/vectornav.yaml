@@ -1,13 +1,15 @@
 vectornav:
   ros__parameters:
     port: "/dev/ttyUSB0"
-    baud: 115200
+    baud: 921600
     reconnect_ms: 500
     # Reference vnproglib-1.2.0.0 headers for enum definitions
     # Async Output Type (ASCII)
+    # leave this at zero to select binary format
     AsyncDataOutputType: 0           # VNOFF
     # Async output Frequency (Hz)
-    AsyncDataOutputFrequency: 20
+    # Not sure why this has to be 1Hz to make it work. Very strange.
+    AsyncDataOutputFrequency: 1
     # Sync control
     syncInMode: 3                    # SYNCINMODE_COUNT
     syncInEdge: 0                    # SYNCINEDGE_RISING
@@ -26,8 +28,8 @@ vectornav:
     errorMode: 1                     # ERRORMODE_SEND
     # Binary output register 1
     BO1:
-      asyncMode: 3                   # ASYNCMODE_BOTH
-      rateDivisor: 40                # 20 Hz
+      asyncMode: 1                   # end only on port 1 to save serial bandwidth
+      rateDivisor: 8                 # 100 Hz
       commonField: 0x7FFF
       timeField: 0x0000              # TIMEGROUP_NONE
       imuField: 0x0000               # IMUGROUP_NONE
